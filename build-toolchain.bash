@@ -230,7 +230,7 @@ if [ $SKIP_THIRDPARTY != true ]; then
 		cd binutils-build
 		$SRC/binutils/configure --target=m68k-apple-macos --prefix=$PREFIX --disable-doc
 		make -j$BUILD_JOBS
-		make install
+		make install-strip
 		cd ..
 
 		# Build gcc for 68K
@@ -242,7 +242,7 @@ if [ $SKIP_THIRDPARTY != true ]; then
 				--disable-libssp MAKEINFO=missing
 		# There seems to be a build failure in parallel builds; ignore any errors and try again without -j8.
 		make -j$BUILD_JOBS || make
-		make install
+		make install-strip
 		unset target_configargs
 		cd ..
 
@@ -273,7 +273,7 @@ if [ $SKIP_THIRDPARTY != true ]; then
 		cd binutils-build-ppc
 		$SRC/binutils/configure --disable-plugins --target=powerpc-apple-macos --prefix=$PREFIX --disable-doc
 		make -j$BUILD_JOBS
-		make install
+		make install-strip
 		cd ..
 
 		# Build gcc for PPC
@@ -283,7 +283,7 @@ if [ $SKIP_THIRDPARTY != true ]; then
 		$SRC/gcc/configure --target=powerpc-apple-macos --prefix=$PREFIX \
 			--enable-languages=c,c++ --disable-libssp --disable-lto MAKEINFO=missing
 		make -j$BUILD_JOBS
-		make install
+		make install-strip
 		unset target_configargs
 		cd ..
 
@@ -323,7 +323,7 @@ echo "Building host-based tools..."
 
 mkdir -p build-host
 cd build-host
-cmake ${SRC} -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_BUILD_TYPE=Debug "${HOST_CMAKE_FLAGS[@]}" ${CMAKE_GENERATOR}
+cmake ${SRC} -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_BUILD_TYPE=Release "${HOST_CMAKE_FLAGS[@]}" ${CMAKE_GENERATOR}
 cd ..
 cmake --build build-host --target install
 
