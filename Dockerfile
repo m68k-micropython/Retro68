@@ -8,7 +8,7 @@ RUN apt-get update && \
         --no-install-recommends --no-install-suggests \
         make libc6-dev gcc g++ git macutils curl \
         python3-pip python3-wheel-whl xz-utils \
-        libgmp10 libgmpxx4ldbl libmpc3  && apt-get clean
+        libgmp-dev libgmpxx4ldbl libmpc3  && apt-get clean
 
 RUN pip install --break-system-packages pyyaml click
 
